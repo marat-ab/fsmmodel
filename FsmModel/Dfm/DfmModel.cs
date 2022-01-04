@@ -13,10 +13,12 @@ namespace FsmModel.Dfm
         private string _startState = string.Empty;
         readonly private List<string> _finishStates = new();
         private bool _isNeedJournal = false;
-        private bool _isDeactivateOutMsgs = true;
+        private bool _isActionsDeactivated = true;
+
+        private readonly Dictionary<string, Action> _actions = new();
 
         private IFsmJournal _journal = new FsmJournal();
-        private string _currentState = "";
+        private string _currentState = string.Empty;
 
         readonly private List<string> _signals = new();
         readonly private List<string> _states = new();
@@ -30,15 +32,17 @@ namespace FsmModel.Dfm
             Dictionary<ValueTuple<string, string>, string> outMap,
             string startState,
             List<string> finishStates,
+            Dictionary<string, Action> actions,
             bool isNeedJournal = false,
-            bool isDeactivateOutMsgs = true)
+            bool isActionsDeactivated = true)
         {
             _stateMap = stateMap.ToDictionary(k => k.Key, v => v.Value);
             _outMap = outMap.ToDictionary(k => k.Key, v => v.Value);
             _startState = startState;
             _finishStates = finishStates;
+            _actions = actions.ToDictionary(k => k.Key, v => v.Value);
             _isNeedJournal = isNeedJournal;
-            _isDeactivateOutMsgs = isDeactivateOutMsgs;
+            _isActionsDeactivated = isActionsDeactivated;
 
             FsmStartTuning();
         }
@@ -62,14 +66,17 @@ namespace FsmModel.Dfm
             if (!_stateMap.ContainsKey((_currentState, signal)))
                 throw new UnknownStateSignalPairInStateMap(_currentState, signal);
 
+            if (!_isActionsDeactivated && !_actions.ContainsKey(_outMap[(_currentState, signal)]))
+                throw new UnknownActionException(_outMap[(_currentState, signal)]);
+
             // Processing
             var oldState = _currentState;
             var outMsg = _outMap[(_currentState, signal)];
 
             _currentState = _stateMap[(_currentState, signal)];
 
-            if (!_isDeactivateOutMsgs)
-                Console.WriteLine(outMsg);
+            if (!_isActionsDeactivated)
+                _actions[outMsg]();
 
             if (_isNeedJournal)
                 _journal.AddEvent(signal, oldState, outMsg);
@@ -82,7 +89,8 @@ namespace FsmModel.Dfm
             string toState,
             string bySignal,
             bool isFinished,
-            string outMsg = "")
+            string outMsg,
+            Action action)
         {
             // Checks
             if (fromState is null || toState is null || bySignal is null || outMsg is null)
@@ -112,6 +120,9 @@ namespace FsmModel.Dfm
 
             _outMap.Add((fromState, bySignal), outMsg);
 
+            if (!_actions.ContainsKey(outMsg))
+                _actions.Add(outMsg, action);
+
             return this;
         }
 
@@ -128,6 +139,9 @@ namespace FsmModel.Dfm
             return this;
         }
 
+        public string GetStartState() =>
+            _startState;
+
         public IDfmModel SetIsNeedJournal(bool isNeedJournal)
         {
             _isNeedJournal = isNeedJournal;
@@ -135,15 +149,39 @@ namespace FsmModel.Dfm
             return this;
         }
 
-        public IDfmModel SetIsNeedDeactivateOutMsgs(bool isDeactivateOutMsgs)
+        public bool IsNeedJournal() =>
+            _isNeedJournal;
+
+        public IDfmModel SetIsNeedActionsDeactivate(bool isNeedActionsDeactivate)
         {
-            _isDeactivateOutMsgs = isDeactivateOutMsgs;
+            _isActionsDeactivated = isNeedActionsDeactivate;
 
             return this;
         }
 
+        public bool IsActionsDeactivated() =>
+            _isActionsDeactivated;
+
         public string GetCurrentState() =>
             _currentState;
+
+        public void Clear()
+        {
+            _stateMap.Clear();
+            _outMap.Clear();
+            _startState = string.Empty;
+            _finishStates.Clear();
+            _isNeedJournal = false;
+            _isActionsDeactivated = true;
+
+            _actions.Clear();
+
+            _journal.Clear();
+            _currentState = string.Empty;
+
+            _signals.Clear();
+            _states.Clear();
+        }
 
         public IFsmJournal GetJournal() =>
             (IFsmJournal)((FsmJournal)_journal).Clone();

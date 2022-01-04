@@ -105,7 +105,7 @@ namespace FsmModel.Tests.Dfm
                .AddTrasition("b", "a", "0", true, "OFF")
                .SetStartState("a")
                .SetIsNeedJournal(isNeedJournal)
-               .SetIsNeedDeactivateOutMsgs(isDeactivateOutMsg);
+               .SetIsNeedActionsDeactivate(isDeactivateOutMsg);
 
             // Then
             dfm.StateMap.Should().BeEquivalentTo(stateMap);

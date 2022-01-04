@@ -1,5 +1,7 @@
 ﻿using FsmModel.Journal;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace FsmModel.Utils
 {
@@ -7,11 +9,28 @@ namespace FsmModel.Utils
     {
         public static void PrintJournal(IFsmJournal fsmJournal)
         {
+            // Prepare
+            var tableColNames = new List<string> { "Time", "Signal", "State", "Out msg" };
+
             var journal = fsmJournal.GetJournal();
-            Console.WriteLine(string.Format("|{0, -10}|{1, -10}|{2, -10}|", "Signal", "State", "Out Msg"));
-            foreach (var v in journal)
+
+            var size = (new List<int> { fsmJournal.GetMaxItemLenght() })
+                        .Concat(tableColNames.Select(v => v.Length))
+                        .Max();
+
+            var tableHeader = "|" + string.Join("|", tableColNames.Select(v => v.PadRight(size))) + "|";
+            var rowSeparator = new string('-', tableHeader.Length);
+
+            // Print
+            Console.WriteLine(rowSeparator);
+            Console.WriteLine(tableHeader);
+            Console.WriteLine(rowSeparator);
+
+            foreach (var v in journal.Select((v, i) => new List<string> { i.ToString() }.Concat(v)).ToList())
             {
-                Console.WriteLine(string.Format("|{0, -10}|{1, -10}|{2, -10}|", v.Item1, v.Item2, v.Item3));
+                var row = "|" + string.Join("|", v.Select(v => v.PadRight(size))) + "|";
+                Console.WriteLine(row);
+                Console.WriteLine(rowSeparator);
             }
         }
     }

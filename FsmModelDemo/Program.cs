@@ -9,17 +9,21 @@ namespace FsmModelDemo
     {
         static void Main(string[] args)
         {
-            var fsm = new DfmModel().AddTrasition("a", "a", "0", true, "OFF")
-                .AddTrasition("a", "b", "1", true, "ON")
-                .AddTrasition("b", "b", "1", true, "ON")
-                .AddTrasition("b", "a", "0", true, "OFF")
+            var fsm = new DfmModel().AddTrasition("a", "a", "0", true, "OFF", () => Print("OFF"))
+                .AddTrasition("a", "b", "1", true, "ON", () => Print("ON"))
+                .AddTrasition("b", "b", "1", true, "ON", () => Print("ON"))
+                .AddTrasition("b", "a", "0", true, "OFF", () => Print("OFF"))
                 .SetStartState("a")
-                .SetIsNeedJournal(true);
+                .SetIsNeedJournal(true)
+                .SetIsNeedActionsDeactivate(false);
 
             fsm.Act("0").Act("1").Act("0").Act("1");
             
 
             JournalUtils.PrintJournal(fsm.GetJournal());
         }
+
+        static void Print(string msg) =>
+            Console.WriteLine(msg);
     }
 }

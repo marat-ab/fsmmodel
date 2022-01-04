@@ -1,24 +1,21 @@
-﻿using System;
+﻿using FsmModel.Journal.Exceptions;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FsmModel.Journal
 {
-    public partial class FsmJournal: IFsmJournal
+    public partial class FsmJournal : IFsmJournal
     {
-        private readonly List<ValueTuple<string, string, string>> _journal = new();
-        private int maxStateNameSize;
-        private int maxSignalNameSize;
-        private int maxOutMsgNameSize;
+        private readonly List<List<string>> _journal = new();
+        private int _maxItemLength;
 
         public FsmJournal() { }
 
-        private FsmJournal(List<ValueTuple<string, string, string>> journal)
+        private FsmJournal(List<List<string>> journal)
         {
-            _journal = journal.ToList();
-            
+            _journal = journal.Select(v => v.ToList())
+                            .ToList();
+
             FillMaxNameSizes();
         }
 
@@ -26,47 +23,51 @@ namespace FsmModel.Journal
 
         public void AddEvent(string state, string signal, string outMsg)
         {
-            _journal.Add((state, signal, outMsg));
+            _journal.Add(new() { state, signal, outMsg });
+
             UpdateMaxNameSizes(state, signal, outMsg);
         }
 
-        public List<ValueTuple<string, string, string>> GetJournal() =>
-            _journal.ToList();
+        public List<List<string>> GetJournal() =>
+            _journal.Select(v => v.ToList())
+                .ToList();
 
         public bool IsEmpty() =>
             _journal.Count == 0 ? true : false;
 
-        public void Clear() =>
+        public void Clear()
+        {
             _journal.Clear();
-            
+            _maxItemLength = 0;
+        }
 
-        public int GetMaxStateNameSize() => maxStateNameSize;
-
-        public int GetMaxSignalNameSize() => maxSignalNameSize;
-
-        public int GetMaxOutMsgNameSize() => maxOutMsgNameSize;
+        public int GetMaxItemLenght() =>
+            _maxItemLength;
 
         // Private
         private void UpdateMaxNameSizes(string state, string signal, string outMsg)
         {
-            if (state.Length > maxStateNameSize)
-                maxStateNameSize = state.Length;
+            if (state.Length > _maxItemLength)
+                _maxItemLength = state.Length;
 
-            if (signal.Length > maxSignalNameSize)
-                maxSignalNameSize = signal.Length;
+            if (signal.Length > _maxItemLength)
+                _maxItemLength = signal.Length;
 
-            if (outMsg.Length > maxOutMsgNameSize)
-                maxOutMsgNameSize = outMsg.Length;
+            if (outMsg.Length > _maxItemLength)
+                _maxItemLength = outMsg.Length;
         }
 
         private void FillMaxNameSizes()
         {
-            maxStateNameSize = 0;
-            maxSignalNameSize = 0;
-            maxOutMsgNameSize = 0;
-            
-            foreach(var item in _journal)            
-                UpdateMaxNameSizes(item.Item1, item.Item2, item.Item3);            
+            _maxItemLength = 0;
+
+            foreach (var item in _journal)
+            {
+                if (item.Count == 3)
+                    UpdateMaxNameSizes(item[0], item[1], item[2]);
+                else
+                    throw new BadRowInJournalException(item);
+            }
         }
     }
 }
