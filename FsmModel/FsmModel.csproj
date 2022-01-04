@@ -6,6 +6,12 @@
     <ApplicationIcon />
     <StartupObject />
 	<Nullable>enable</Nullable>
+	<Version>0.0.1</Version>
+	<Authors>Marat Abdrakhmanov</Authors>
+	<Company>Devpractice</Company>
+	<Product>FsmModel</Product>
+	<Description>FsmModel is a library for creating and using Finite Automata (Finite State Machines).</Description>
+	<Copyright>copyright © 2022</Copyright>
   </PropertyGroup>
 
 </Project>

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FsmModel.Dfm.Exceptions
+namespace FsmModel.Dfa.Exceptions
 {
     public class TransitionAlreadyExistsInStateMapException : Exception
     {

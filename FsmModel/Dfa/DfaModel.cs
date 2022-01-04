@@ -1,17 +1,17 @@
-﻿using FsmModel.Dfm.Exceptions;
+﻿using FsmModel.Dfa.Exceptions;
 using FsmModel.Journal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace FsmModel.Dfm
+namespace FsmModel.Dfa
 {
-    public partial class DfmModel : IDfmModel
+    public partial class DfaModel : IDfaModel
     {
         readonly private Dictionary<ValueTuple<string, string>, string> _stateMap = new();
         readonly private Dictionary<ValueTuple<string, string>, string> _outMap = new();
-        private string _startState = string.Empty;
-        readonly private List<string> _finishStates = new();
+        private string _initialState = string.Empty;
+        readonly private List<string> _finalStates = new();
         private bool _isNeedJournal = false;
         private bool _isActionsDeactivated = true;
 
@@ -23,14 +23,14 @@ namespace FsmModel.Dfm
         readonly private List<string> _signals = new();
         readonly private List<string> _states = new();
 
-        public DfmModel()
+        public DfaModel()
         {
         }
 
-        public DfmModel(
+        public DfaModel(
             Dictionary<ValueTuple<string, string>, string> stateMap,
             Dictionary<ValueTuple<string, string>, string> outMap,
-            string startState,
+            string initialState,
             List<string> finishStates,
             Dictionary<string, Action> actions,
             bool isNeedJournal = false,
@@ -38,26 +38,26 @@ namespace FsmModel.Dfm
         {
             _stateMap = stateMap.ToDictionary(k => k.Key, v => v.Value);
             _outMap = outMap.ToDictionary(k => k.Key, v => v.Value);
-            _startState = startState;
-            _finishStates = finishStates;
+            _initialState = initialState;
+            _finalStates = finishStates;
             _actions = actions.ToDictionary(k => k.Key, v => v.Value);
             _isNeedJournal = isNeedJournal;
             _isActionsDeactivated = isActionsDeactivated;
 
-            FsmStartTuning();
+            StartTuning();
         }
 
         // IDfmModel
-        public IDfmModel Reset()
+        public IDfaModel Reset()
         {
-            _journal = new FsmJournal();
+            _journal.Clear();
 
-            _currentState = _startState;
+            _currentState = _initialState;
 
             return this;
         }
 
-        public IDfmModel Act(string signal)
+        public IDfaModel Act(string signal)
         {
             // Checks
             if (!_signals.Contains(signal))
@@ -84,13 +84,13 @@ namespace FsmModel.Dfm
             return this;
         }
 
-        public IDfmModel AddTrasition(
+        public IDfaModel AddTrasition(
             string fromState,
             string toState,
             string bySignal,
             bool isFinished,
             string outMsg,
-            Action action)
+            Action? action = null)
         {
             // Checks
             if (fromState is null || toState is null || bySignal is null || outMsg is null)
@@ -115,34 +115,34 @@ namespace FsmModel.Dfm
 
             _stateMap.Add((fromState, bySignal), toState);
 
-            if (isFinished && !_finishStates.Contains(toState))
-                _finishStates.Add(toState);
+            if (isFinished && !_finalStates.Contains(toState))
+                _finalStates.Add(toState);
 
             _outMap.Add((fromState, bySignal), outMsg);
 
             if (!_actions.ContainsKey(outMsg))
-                _actions.Add(outMsg, action);
+                _actions.Add(outMsg, action is null ? () => { } : action);
 
             return this;
         }
 
-        public IDfmModel SetStartState(string startState)
+        public IDfaModel SetInitialState(string initialState)
         {
-            if (!_states.Contains(startState))
-                throw new UnknownStartStateException(startState);
+            if (!_states.Contains(initialState))
+                throw new UnknownInitialStateException(initialState);
 
-            _startState = startState;
+            _initialState = initialState;
 
             if (_currentState == "")
-                _currentState = _startState;
+                _currentState = _initialState;
 
             return this;
         }
 
-        public string GetStartState() =>
-            _startState;
+        public string GetInitialState() =>
+            _initialState;
 
-        public IDfmModel SetIsNeedJournal(bool isNeedJournal)
+        public IDfaModel SetIsNeedJournal(bool isNeedJournal)
         {
             _isNeedJournal = isNeedJournal;
 
@@ -152,7 +152,7 @@ namespace FsmModel.Dfm
         public bool IsNeedJournal() =>
             _isNeedJournal;
 
-        public IDfmModel SetIsNeedActionsDeactivate(bool isNeedActionsDeactivate)
+        public IDfaModel SetIsNeedActionsDeactivate(bool isNeedActionsDeactivate)
         {
             _isActionsDeactivated = isNeedActionsDeactivate;
 
@@ -169,8 +169,8 @@ namespace FsmModel.Dfm
         {
             _stateMap.Clear();
             _outMap.Clear();
-            _startState = string.Empty;
-            _finishStates.Clear();
+            _initialState = string.Empty;
+            _finalStates.Clear();
             _isNeedJournal = false;
             _isActionsDeactivated = true;
 
@@ -186,11 +186,11 @@ namespace FsmModel.Dfm
         public IFsmJournal GetJournal() =>
             (IFsmJournal)((FsmJournal)_journal).Clone();
 
-        public bool IsFinished() =>
-            _finishStates.Contains(_currentState);
+        public bool IsFinal() =>
+            _finalStates.Contains(_currentState);
 
         // Private
-        private void FsmStartTuning()
+        private void StartTuning()
         {
             foreach (var trans in _stateMap)
             {
@@ -213,10 +213,10 @@ namespace FsmModel.Dfm
                     throw new UnknownSignalException(trans.Key.Item2);
             }
 
-            if (!_states.Contains(_startState))
-                throw new UnknownStartStateException(_startState);
+            if (!_states.Contains(_initialState))
+                throw new UnknownInitialStateException(_initialState);
 
-            _currentState = _startState;
+            _currentState = _initialState;
         }
 
     }

@@ -6,7 +6,7 @@ namespace FsmModel.Journal
     {
         void AddEvent(string currentState, string signal, string outMsg);
 
-        List<List<string>> GetJournal();
+        List<List<string>> GetJournalContent();
 
         bool IsEmpty();
 

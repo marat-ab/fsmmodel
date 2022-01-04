@@ -28,7 +28,7 @@ namespace FsmModel.Journal
             UpdateMaxNameSizes(state, signal, outMsg);
         }
 
-        public List<List<string>> GetJournal() =>
+        public List<List<string>> GetJournalContent() =>
             _journal.Select(v => v.ToList())
                 .ToList();
 

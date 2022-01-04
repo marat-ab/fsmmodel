@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace FsmModel.Dfm
+namespace FsmModel.Dfa
 {
-    public partial class DfmModel : IDfmModel
+    public partial class DfaModel : IDfaModel
     {
         public Dictionary<ValueTuple<string, string>, string> StateMap
         {
@@ -16,6 +16,6 @@ namespace FsmModel.Dfm
             get => _outMap.ToDictionary(k => k.Key, v => v.Value);
         }
 
-        public List<string> FinishStates { get => _finishStates.ToList(); }
+        public List<string> FinalStates { get => _finalStates.ToList(); }
     }
 }
