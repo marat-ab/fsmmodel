@@ -29,7 +29,7 @@ namespace FsmModel.Dfa
         /// <param name="toState">The state to which the transition will be occured</param>
         /// <param name="bySignal">The input signal that will trigger the transition</param>
         /// <param name="isFinal">Is toState is one of final states</param>
-        /// <param name="outMsg">Output of DFA when transition is occured</param>
+        /// <param name="outSignal">Output signal of DFA when transition is occured</param>
         /// <param name="action">The function that will be called when the transition is occured</param>
         /// <returns>Current DFA</returns>
         IDfaModel AddTrasition(
@@ -37,7 +37,7 @@ namespace FsmModel.Dfa
             string toState,
             string bySignal,
             bool isFinal,
-            string outMsg,
+            string outSignal,
             Action? action = null);
 
         /// <summary>
@@ -45,6 +45,12 @@ namespace FsmModel.Dfa
         /// </summary>
         /// <returns>Initial state</returns>
         string GetInitialState();
+
+        /// <summary>
+        /// Get last output signal of DFA
+        /// </summary>
+        /// <returns>Output signal</returns>
+        string GetOutSignal();
 
         /// <summary>
         /// Set initial state of DFA

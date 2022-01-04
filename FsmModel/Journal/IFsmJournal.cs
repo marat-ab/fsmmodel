@@ -4,7 +4,7 @@ namespace FsmModel.Journal
 {
     public interface IFsmJournal
     {
-        void AddEvent(string currentState, string signal, string outMsg);
+        void AddEvent(string currentState, string signal, string outSignal);
 
         List<List<string>> GetJournalContent();
 

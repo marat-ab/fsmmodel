@@ -21,11 +21,11 @@ namespace FsmModel.Journal
 
         // IFsmJournal
 
-        public void AddEvent(string state, string signal, string outMsg)
+        public void AddEvent(string state, string signal, string outSignal)
         {
-            _journal.Add(new() { state, signal, outMsg });
+            _journal.Add(new() { state, signal, outSignal });
 
-            UpdateMaxNameSizes(state, signal, outMsg);
+            UpdateMaxNameSizes(state, signal, outSignal);
         }
 
         public List<List<string>> GetJournalContent() =>
@@ -45,7 +45,7 @@ namespace FsmModel.Journal
             _maxItemLength;
 
         // Private
-        private void UpdateMaxNameSizes(string state, string signal, string outMsg)
+        private void UpdateMaxNameSizes(string state, string signal, string outSignal)
         {
             if (state.Length > _maxItemLength)
                 _maxItemLength = state.Length;
@@ -53,8 +53,8 @@ namespace FsmModel.Journal
             if (signal.Length > _maxItemLength)
                 _maxItemLength = signal.Length;
 
-            if (outMsg.Length > _maxItemLength)
-                _maxItemLength = outMsg.Length;
+            if (outSignal.Length > _maxItemLength)
+                _maxItemLength = outSignal.Length;
         }
 
         private void FillMaxNameSizes()

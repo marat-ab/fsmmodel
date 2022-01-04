@@ -13,7 +13,7 @@ namespace FsmModel.Dfa
 
         public Dictionary<ValueTuple<string, string>, string> OutMap
         {
-            get => _outMap.ToDictionary(k => k.Key, v => v.Value);
+            get => _outSignalMap.ToDictionary(k => k.Key, v => v.Value);
         }
 
         public List<string> FinalStates { get => _finalStates.ToList(); }
