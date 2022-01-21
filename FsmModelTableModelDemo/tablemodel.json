@@ -1,0 +1,16 @@
+{
+  "Type": "DFA",
+  "InitialState": "q0",
+  "FinalStates": [ "q0", "q1" ],
+  "IsNeedJournal": true,
+  "StateMap": [
+    [ "-", "r0", "r1" ],
+    [ "q0", "q0", "q0" ],
+    [ "q1", "q1", "q1" ]    
+  ],
+  "OutMap": [
+    [ "-", "r0", "r1" ],
+    [ "q0", "OFF", "ON" ],
+    [ "q1", "OFF", "ON" ]
+  ]
+}
