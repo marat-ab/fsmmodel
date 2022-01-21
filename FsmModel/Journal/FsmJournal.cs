@@ -51,7 +51,7 @@ namespace FsmModel.Journal
 
         // Private
         private void UpdateMaxNameSizes(string state, string inSignal, string outSignal)
-        {            
+        {
             if (state.Length > _maxItemLength)
                 _maxItemLength = state.Length;
 

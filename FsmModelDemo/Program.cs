@@ -2,7 +2,6 @@
 using FsmModel.Models;
 using FsmModel.Utils;
 using System;
-using System.Linq;
 
 namespace FsmModelDemo
 {
@@ -12,7 +11,7 @@ namespace FsmModelDemo
         {
             var q0 = new State("q0");
             var q1 = new State("q1");
-            
+
             var s0 = new InSignal("00");
             var s1 = new InSignal("01");
             var s2 = new InSignal("10");

@@ -3,8 +3,6 @@ using FsmModel.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FsmModel.Loaders.ModelLoaders.TransitionTables.Utils
 {
@@ -24,7 +22,7 @@ namespace FsmModel.Loaders.ModelLoaders.TransitionTables.Utils
                             finishStates,
                             new(),
                             isNeedJournal);
-            
+
             return dfaModel;
         }
 
@@ -36,11 +34,11 @@ namespace FsmModel.Loaders.ModelLoaders.TransitionTables.Utils
                                         .TakeLast(table.StateMap.Count - 1)
                                         .Select(v => new InSignal(v))
                                         .ToList();
-            
-            foreach(var row in table.StateMap.Skip(1))
+
+            foreach (var row in table.StateMap.Skip(1))
             {
                 var state = row[0];
-                foreach(var s in row.Skip(1).Select((v, i) => (v, i)))
+                foreach (var s in row.Skip(1).Select((v, i) => (v, i)))
                 {
                     stateMap.Add((new(state), inSignals[s.i]), new(s.v));
                 }

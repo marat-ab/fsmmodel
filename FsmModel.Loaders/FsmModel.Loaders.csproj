@@ -2,7 +2,16 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-	  <Nullable>enable</Nullable>
+	<ApplicationIcon />
+	<StartupObject />
+	<Nullable>enable</Nullable>
+	<Version>0.0.1</Version>
+	<Authors>Marat Abdrakhmanov</Authors>
+	<Company>Devpractice</Company>
+	<Product>FsmModel.Loaders</Product>
+	<Description>FsmModel.Loaders is a library with tools for loading transition tables from files 
+		and convert it into DFA models.</Description>
+	<Copyright>copyright © 2022</Copyright>
   </PropertyGroup>
 
   <ItemGroup>

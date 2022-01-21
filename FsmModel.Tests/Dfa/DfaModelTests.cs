@@ -12,7 +12,7 @@ namespace FsmModel.Tests.Dfa
 
             var s0 = new InSignal("0");
             var s1 = new InSignal("1");
-            
+
             var r0 = new OutSignal("OFF");
             var r1 = new OutSignal("ON");
 

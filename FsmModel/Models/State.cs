@@ -2,14 +2,14 @@
 
 namespace FsmModel.Models
 {
-    public class State: IEquatable<State>
+    public class State : IEquatable<State>
     {
         public string Value { get; set; }
 
         public State(string value) =>
             Value = value;
 
-        public override bool Equals(object? obj) => 
+        public override bool Equals(object? obj) =>
             this.Equals(obj as State);
 
         public bool Equals(State? other)
@@ -18,12 +18,12 @@ namespace FsmModel.Models
             {
                 return false;
             }
-            
+
             if (Object.ReferenceEquals(this, other))
             {
                 return true;
             }
-                        
+
             if (this.GetType() != other.GetType())
             {
                 return false;
@@ -32,7 +32,7 @@ namespace FsmModel.Models
             return Value == other.Value;
         }
 
-        public override int GetHashCode() => 
+        public override int GetHashCode() =>
             Value.GetHashCode();
 
         public static bool operator ==(State lhs, State rhs)
@@ -46,7 +46,7 @@ namespace FsmModel.Models
 
                 return false;
             }
-            
+
             return lhs.Equals(rhs);
         }
 

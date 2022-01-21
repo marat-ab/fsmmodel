@@ -1,11 +1,6 @@
 ﻿using FsmModel.Loaders.ModelLoaders.TransitionTables;
 using FsmModel.Models;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FsmModel.Loaders.Tests.ModelLoaders.TransitionTables.Utils
 {
@@ -31,6 +26,6 @@ namespace FsmModel.Loaders.Tests.ModelLoaders.TransitionTables.Utils
                     new() { "q0", "OFF", "ON" },
                     new() { "q1", "OFF", "ON" }
                 }
-            };            
+            };
     }
 }

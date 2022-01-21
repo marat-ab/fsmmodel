@@ -4,9 +4,6 @@ using FsmModel.Models;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FsmModel.Loaders.Tests.ModelLoaders.TransitionTables.Utils
 {
@@ -36,7 +33,7 @@ namespace FsmModel.Loaders.Tests.ModelLoaders.TransitionTables.Utils
 
             var expectedInitialState = new State("q0");
             var expectedFinishStates = new List<State> { new("q0"), new("q1") };
-            
+
             // When
             var dfa = TransitionTableConverters.ToDfaModel(transTable);
 
