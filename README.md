@@ -68,7 +68,7 @@ dfa.Act(s3)
 	.Act(s0)
 	.Act(s0);  
  ```
- 3. Pring journal:
+ 3. Print journal:
  ```csharp
 JournalUtils.GetPrettyJournalContent(dfa.GetJournal())
     .ForEach(row => Console.WriteLine(row));
