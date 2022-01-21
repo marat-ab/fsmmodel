@@ -1,5 +1,6 @@
 ﻿using FsmModel.Dfa.Exceptions;
 using FsmModel.Journal;
+using FsmModel.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,32 +9,32 @@ namespace FsmModel.Dfa
 {
     public partial class DfaModel : IDfaModel
     {
-        readonly private Dictionary<ValueTuple<string, string>, string> _stateMap = new();
-        readonly private Dictionary<ValueTuple<string, string>, string> _outSignalMap = new();
-        private string _initialState = string.Empty;
-        readonly private List<string> _finalStates = new();
+        readonly private Dictionary<ValueTuple<State, Signal>, State> _stateMap = new();
+        readonly private Dictionary<ValueTuple<State, Signal>, Signal> _outSignalMap = new();
+        private State _initialState = new(string.Empty);
+        readonly private List<State> _finalStates = new();
         private bool _isNeedJournal = false;
         private bool _isActionsDeactivated = true;
 
-        private readonly Dictionary<string, Action> _actions = new();
+        private readonly Dictionary<Signal, Action> _actions = new();
 
-        private IFsmJournal _journal = new FsmJournal();
-        private string _currentState = string.Empty;
-        private string _outSignal = string.Empty;
+        private readonly IFsmJournal _journal = new FsmJournal();
+        private State _currentState = new(string.Empty);
+        private Signal _outSignal = new(string.Empty);
 
-        readonly private List<string> _signals = new();
-        readonly private List<string> _states = new();
+        readonly private List<Signal> _signals = new();
+        readonly private List<State> _states = new();
 
         public DfaModel()
         {
         }
 
         public DfaModel(
-            Dictionary<ValueTuple<string, string>, string> stateMap,
-            Dictionary<ValueTuple<string, string>, string> outMap,
-            string initialState,
-            List<string> finishStates,
-            Dictionary<string, Action> actions,
+            Dictionary<ValueTuple<State, Signal>, State> stateMap,
+            Dictionary<ValueTuple<State, Signal>, Signal> outMap,
+            State initialState,
+            List<State> finishStates,
+            Dictionary<Signal, Action> actions,
             bool isNeedJournal = false,
             bool isActionsDeactivated = true)
         {
@@ -54,12 +55,12 @@ namespace FsmModel.Dfa
             _journal.Clear();
 
             _currentState = _initialState;
-            _outSignal = string.Empty;
+            _outSignal = new(string.Empty);
 
             return this;
         }
 
-        public IDfaModel Act(string signal)
+        public IDfaModel Act(Signal signal)
         {
             // Checks
             if (!_signals.Contains(signal))
@@ -82,24 +83,21 @@ namespace FsmModel.Dfa
                 _actions[outSignal]();
 
             if (_isNeedJournal)
-                _journal.AddEvent(signal, oldState, outSignal);
+                _journal.AddEvent(oldState, signal, outSignal);
 
             return this;
         }
 
         public IDfaModel AddTrasition(
-            string fromState,
-            string toState,
-            string bySignal,
+            State fromState,
+            State toState,
+            Signal bySignal,
             bool isFinished,
-            string outSignal,
+            Signal outSignal,
             Action? action = null)
         {
             // Checks
-            if (fromState is null || toState is null || bySignal is null || outSignal is null)
-                throw new ArgumentNullException($"Args: fromState: {fromState}, toState: {toState}, " +
-                    $"bySignal: {bySignal}, outSignal: {outSignal}");
-
+            // 
             if (_stateMap.ContainsKey((fromState, bySignal)))
                 throw new TransitionAlreadyExistsInStateMapException(fromState, bySignal);
 
@@ -129,23 +127,23 @@ namespace FsmModel.Dfa
             return this;
         }
 
-        public string GetOutSignal() =>
+        public Signal GetOutSignal() =>
             _outSignal;
 
-        public IDfaModel SetInitialState(string initialState)
+        public IDfaModel SetInitialState(State initialState)
         {
             if (!_states.Contains(initialState))
                 throw new UnknownInitialStateException(initialState);
 
             _initialState = initialState;
 
-            if (_currentState == "")
+            if (_currentState == new State(string.Empty))
                 _currentState = _initialState;
 
             return this;
         }
 
-        public string GetInitialState() =>
+        public State GetInitialState() =>
             _initialState;
 
         public IDfaModel SetIsNeedJournal(bool isNeedJournal)
@@ -168,14 +166,14 @@ namespace FsmModel.Dfa
         public bool IsActionsDeactivated() =>
             _isActionsDeactivated;
 
-        public string GetCurrentState() =>
+        public State GetCurrentState() =>
             _currentState;
 
         public void Clear()
         {
             _stateMap.Clear();
             _outSignalMap.Clear();
-            _initialState = string.Empty;
+            _initialState = new(string.Empty);
             _finalStates.Clear();
             _isNeedJournal = false;
             _isActionsDeactivated = true;
@@ -183,8 +181,8 @@ namespace FsmModel.Dfa
             _actions.Clear();
 
             _journal.Clear();
-            _currentState = string.Empty;
-            _outSignal = string.Empty;
+            _currentState = new(string.Empty);
+            _outSignal = new(string.Empty);
 
             _signals.Clear();
             _states.Clear();
@@ -224,7 +222,7 @@ namespace FsmModel.Dfa
                 throw new UnknownInitialStateException(_initialState);
 
             _currentState = _initialState;
-            _outSignal = string.Empty;
+            _outSignal = new(string.Empty);
         }
 
     }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
-using FsmModel.Utils.ModelLoaders.TableModels;
 
 namespace FsmModelTableModelDemo
 {
@@ -16,7 +15,7 @@ namespace FsmModelTableModelDemo
                 "tablemodel.json"
             );
 
-            var tableModel = TableModelLoader.Load(fileName);
+            //var tableModel = TableModelLoader.Load(fileName);
 
             Console.WriteLine("Demo run...");
         }

@@ -4,7 +4,7 @@ namespace FsmModel.Loaders.ModelLoaders.TransitionTables
 {
     public partial class TransitionTableLoader
     {
-        private IFileBroker fileBroker;
+        private readonly IFileBroker fileBroker;
 
         public TransitionTableLoader(IFileBroker fileBroker) =>
             this.fileBroker = fileBroker;

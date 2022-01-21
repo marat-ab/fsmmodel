@@ -1,4 +1,5 @@
 ﻿using FsmModel.Journal.Exceptions;
+using FsmModel.Models;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -21,11 +22,15 @@ namespace FsmModel.Journal
 
         // IFsmJournal
 
-        public void AddEvent(string state, string signal, string outSignal)
+        public void AddEvent(State state, Signal inSignal, Signal outSignal)
         {
-            _journal.Add(new() { state, signal, outSignal });
+            var stateValue = state.ToString();
+            var inSignalValue = inSignal.ToString();
+            var outSignalValue = outSignal.ToString();
 
-            UpdateMaxNameSizes(state, signal, outSignal);
+            _journal.Add(new() { stateValue, inSignalValue, outSignalValue });
+
+            UpdateMaxNameSizes(stateValue, inSignalValue, outSignalValue);
         }
 
         public List<List<string>> GetJournalContent() =>
@@ -33,7 +38,7 @@ namespace FsmModel.Journal
                 .ToList();
 
         public bool IsEmpty() =>
-            _journal.Count == 0 ? true : false;
+            _journal.Count == 0;
 
         public void Clear()
         {
@@ -45,13 +50,13 @@ namespace FsmModel.Journal
             _maxItemLength;
 
         // Private
-        private void UpdateMaxNameSizes(string state, string signal, string outSignal)
-        {
+        private void UpdateMaxNameSizes(string state, string inSignal, string outSignal)
+        {            
             if (state.Length > _maxItemLength)
                 _maxItemLength = state.Length;
 
-            if (signal.Length > _maxItemLength)
-                _maxItemLength = signal.Length;
+            if (inSignal.Length > _maxItemLength)
+                _maxItemLength = inSignal.Length;
 
             if (outSignal.Length > _maxItemLength)
                 _maxItemLength = outSignal.Length;

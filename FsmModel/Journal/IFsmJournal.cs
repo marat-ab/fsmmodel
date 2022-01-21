@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using FsmModel.Models;
+using System.Collections.Generic;
 
 namespace FsmModel.Journal
 {
     public interface IFsmJournal
     {
-        void AddEvent(string currentState, string signal, string outSignal);
+        void AddEvent(State state, Signal inSignal, Signal outSignal);
 
         List<List<string>> GetJournalContent();
 

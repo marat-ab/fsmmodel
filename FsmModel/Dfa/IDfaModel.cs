@@ -1,4 +1,5 @@
 ﻿using FsmModel.Journal;
+using FsmModel.Models;
 using System;
 
 namespace FsmModel.Dfa
@@ -18,7 +19,7 @@ namespace FsmModel.Dfa
         /// </summary>
         /// <param name="signal"></param>
         /// <returns>Current DFA</returns>
-        IDfaModel Act(string signal);
+        IDfaModel Act(Signal signal);
 
         // Create and tuning
 
@@ -33,31 +34,31 @@ namespace FsmModel.Dfa
         /// <param name="action">The function that will be called when the transition is occured</param>
         /// <returns>Current DFA</returns>
         IDfaModel AddTrasition(
-            string fromState,
-            string toState,
-            string bySignal,
+            State fromState,
+            State toState,
+            Signal bySignal,
             bool isFinal,
-            string outSignal,
+            Signal outSignal,
             Action? action = null);
 
         /// <summary>
         /// Return initial state of DFA
         /// </summary>
         /// <returns>Initial state</returns>
-        string GetInitialState();
+        State GetInitialState();
 
         /// <summary>
         /// Get last output signal of DFA
         /// </summary>
         /// <returns>Output signal</returns>
-        string GetOutSignal();
+        Signal GetOutSignal();
 
         /// <summary>
         /// Set initial state of DFA
         /// </summary>
         /// <param name="initialState"></param>
         /// <returns>Current DFA</returns>
-        IDfaModel SetInitialState(string initialState);
+        IDfaModel SetInitialState(State initialState);
 
         /// <summary>
         /// Returns a flag indicating whether to keep a log of the machine operation or not
@@ -91,7 +92,7 @@ namespace FsmModel.Dfa
         /// Return current state of DFA
         /// </summary>
         /// <returns>Current state of DFA</returns>
-        string GetCurrentState();
+        State GetCurrentState();
 
         /// <summary>
         /// Return a flag indicating that state is final

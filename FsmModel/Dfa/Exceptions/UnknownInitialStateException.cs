@@ -1,10 +1,11 @@
-﻿using System;
+﻿using FsmModel.Models;
+using System;
 
 namespace FsmModel.Dfa.Exceptions
 {
     public class UnknownInitialStateException : Exception
     {
-        public UnknownInitialStateException(string state)
+        public UnknownInitialStateException(State state)
             : base(message: $"Unknown initial state: {state} error.") { }
     }
 }
