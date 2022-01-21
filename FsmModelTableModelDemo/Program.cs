@@ -12,21 +12,22 @@ namespace FsmModelTableModelDemo
     {
         static void Main(string[] args)
         {
+            // Create fileName
+
             var dirName = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            var fileName = Path.Combine(dirName is null ? "" : dirName, "tablemodel.json");
 
-            var fileName = Path.Combine(
-                dirName is null ? "" : dirName,
-                "tablemodel.json"
-            );
-
+            // Load transition table
             var loader = new TransitionTableLoader(new FileBroker());
+            var transitionTable = loader.Load(fileName);
 
-            var tableModel = loader.Load(fileName);
+            // Convert TransitionTable into DfaModel
+            var dfaModel = TransitionTableConverters.ToDfaModel(transitionTable);
 
-            var dfaModel = TransitionTableConverters.ToDfaModel(tableModel);
-
+            // Modeling
             dfaModel.Act(new("r1")).Act(new("r0")).Act(new("r1"));
 
+            // Print Journal
             JournalUtils.GetPrettyJournalContent(dfaModel.GetJournal())
                 .ForEach(row => Console.WriteLine(row));
         }

@@ -9,6 +9,7 @@ namespace FsmModelDemo
     {
         static void Main(string[] args)
         {
+            // Create States, Input Signals and Output Signals
             var q0 = new State("q0");
             var q1 = new State("q1");
 
@@ -20,7 +21,8 @@ namespace FsmModelDemo
             var r0 = new OutSignal("0");
             var r1 = new OutSignal("1");
 
-            var fsm = new DfaModel()
+            // Create DFA
+            var dfa = new DfaModel()
                 .AddTrasition(q0, q0, s0, true, r0, () => Print("0"))
                 .AddTrasition(q0, q0, s1, true, r1, () => Print("1"))
                 .AddTrasition(q0, q0, s2, true, r1, () => Print("1"))
@@ -35,9 +37,11 @@ namespace FsmModelDemo
                 .SetIsNeedJournal(true)
                 .SetIsNeedActionsDeactivate(false);
 
-            fsm.Act(s0).Act(s0).Act(s2).Act(s3).Act(s1).Act(s3).Act(s0).Act(s0);
+            // Modeling
+            dfa.Act(s0).Act(s0).Act(s2).Act(s3).Act(s1).Act(s3).Act(s0).Act(s0);
 
-            JournalUtils.GetPrettyJournalContent(fsm.GetJournal())
+            // Print Journal
+            JournalUtils.GetPrettyJournalContent(dfa.GetJournal())
                 .ForEach(row => Console.WriteLine(row));
         }
 
