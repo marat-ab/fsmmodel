@@ -5,15 +5,15 @@ VisualStudioVersion = 16.0.31829.152
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FsmModel", "FsmModel\FsmModel.csproj", "{6372FAAF-185E-4E37-9362-1FE0CA260221}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FsmModelFluentApiDemo", "FsmModelDemo\FsmModelFluentApiDemo.csproj", "{BAD2AC28-29D7-47A4-942F-75947B337B3F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FsmModelFluentApiDemo", "FsmModelFluentApiDemo\FsmModelFluentApiDemo.csproj", "{BAD2AC28-29D7-47A4-942F-75947B337B3F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FsmModel.Tests", "FsmModel.Tests\FsmModel.Tests.csproj", "{7EF1478F-39E3-48F8-B851-7BE3EEDA91A8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FsmModelTableModelDemo", "FsmModelTableModelDemo\FsmModelTableModelDemo.csproj", "{34A7F578-A29C-4109-A52E-26AAB78F7B79}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FsmModelTransitionTableDemo", "FsmModelTransitionTableDemo\FsmModelTransitionTableDemo.csproj", "{34A7F578-A29C-4109-A52E-26AAB78F7B79}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FsmModel.Loaders", "FsmModel.Loaders\FsmModel.Loaders.csproj", "{D0DF0F0E-0A55-400E-BA98-699B9CA8E11B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FsmModel.Loaders", "FsmModel.Loaders\FsmModel.Loaders.csproj", "{D0DF0F0E-0A55-400E-BA98-699B9CA8E11B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FsmModel.Loaders.Tests", "FsmModel.Loaders.Tests\FsmModel.Loaders.Tests.csproj", "{60FB5038-68C3-4BC4-805E-B2474312F7D2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FsmModel.Loaders.Tests", "FsmModel.Loaders.Tests\FsmModel.Loaders.Tests.csproj", "{60FB5038-68C3-4BC4-805E-B2474312F7D2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
