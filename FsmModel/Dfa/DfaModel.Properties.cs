@@ -7,12 +7,12 @@ namespace FsmModel.Dfa
 {
     public partial class DfaModel
     {
-        public Dictionary<ValueTuple<State, Signal>, State> StateMap
+        public Dictionary<ValueTuple<State, InSignal>, State> StateMap
         {
             get => _stateMap.ToDictionary(k => k.Key, v => v.Value);
         }
 
-        public Dictionary<ValueTuple<State, Signal>, Signal> OutMap
+        public Dictionary<ValueTuple<State, InSignal>, OutSignal> OutMap
         {
             get => _outSignalMap.ToDictionary(k => k.Key, v => v.Value);
         }

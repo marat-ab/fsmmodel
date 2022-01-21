@@ -5,7 +5,7 @@ namespace FsmModel.Dfa.Exceptions
 {
     public class UnknownSignalException : Exception
     {
-        public UnknownSignalException(Signal signal)
+        public UnknownSignalException(InSignal signal)
             : base(message: $"Unknown signal: {signal} error occured.") { }
     }
 }

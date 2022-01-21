@@ -2,17 +2,17 @@
 
 namespace FsmModel.Models
 {
-    public class Signal : IEquatable<Signal>
+    public class InSignal : IEquatable<InSignal>
     {
         public string Value { get; set; }
 
-        public Signal(string value) =>
+        public InSignal(string value) =>
             Value = value;
 
         public override bool Equals(object? obj) =>
-            this.Equals(obj as Signal);
+            this.Equals(obj as InSignal);
 
-        public bool Equals(Signal? other)
+        public bool Equals(InSignal? other)
         {
             if (other is null)
             {
@@ -35,7 +35,7 @@ namespace FsmModel.Models
         public override int GetHashCode() =>
             Value.GetHashCode();
 
-        public static bool operator ==(Signal lhs, Signal rhs)
+        public static bool operator ==(InSignal lhs, InSignal rhs)
         {
             if (lhs is null)
             {
@@ -50,7 +50,7 @@ namespace FsmModel.Models
             return lhs.Equals(rhs);
         }
 
-        public static bool operator !=(Signal lhs, Signal rhs)
+        public static bool operator !=(InSignal lhs, InSignal rhs)
             => !(lhs == rhs);
 
         public override string ToString() =>

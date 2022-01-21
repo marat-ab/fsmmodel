@@ -28,13 +28,13 @@ namespace FsmModel.Loaders.ModelLoaders.TransitionTables.Utils
             return dfaModel;
         }
 
-        private static Dictionary<ValueTuple<State, Signal>, State> BuildStateMap(TransitionTable table)
+        private static Dictionary<ValueTuple<State, InSignal>, State> BuildStateMap(TransitionTable table)
         {
-            var stateMap = new Dictionary<ValueTuple<State, Signal>, State>();
+            var stateMap = new Dictionary<ValueTuple<State, InSignal>, State>();
 
-            List<Signal> inSignals = table.StateMap.First()
+            List<InSignal> inSignals = table.StateMap.First()
                                         .TakeLast(table.StateMap.Count - 1)
-                                        .Select(v => new Signal(v))
+                                        .Select(v => new InSignal(v))
                                         .ToList();
             
             foreach(var row in table.StateMap.Skip(1))
@@ -49,13 +49,13 @@ namespace FsmModel.Loaders.ModelLoaders.TransitionTables.Utils
             return stateMap;
         }
 
-        private static Dictionary<ValueTuple<State, Signal>, Signal> BuildOutMap(TransitionTable table)
+        private static Dictionary<ValueTuple<State, InSignal>, OutSignal> BuildOutMap(TransitionTable table)
         {
-            var outMap = new Dictionary<ValueTuple<State, Signal>, Signal>();
+            var outMap = new Dictionary<ValueTuple<State, InSignal>, OutSignal>();
 
-            List<Signal> inSignals = table.OutMap.First()
+            List<InSignal> inSignals = table.OutMap.First()
                                         .TakeLast(table.OutMap.Count - 1)
-                                        .Select(v => new Signal(v))
+                                        .Select(v => new InSignal(v))
                                         .ToList();
 
             foreach (var row in table.OutMap.Skip(1))

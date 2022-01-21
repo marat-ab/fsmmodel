@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using FsmModel.Models;
 using NUnit.Framework;
 
 namespace FsmModel.Tests.Dfa
@@ -13,7 +14,7 @@ namespace FsmModel.Tests.Dfa
             var dfa = CreateSimpleDfaModel();
 
             // When
-            dfa.Act("0").Act("1").Reset();
+            dfa.Act(new("0")).Act(new("1")).Reset();
 
             // Then
             dfa.GetCurrentState().Should().Be(dfa.GetInitialState());
@@ -27,11 +28,11 @@ namespace FsmModel.Tests.Dfa
             // Given
             var dfa = CreateSimpleDfaModel();
 
-            int countOfRowsInJournalBeforeReset = 2;
-            string stateBeforeReset = "b";
+            var countOfRowsInJournalBeforeReset = 2;
+            var stateBeforeReset = new State("q1");
 
             // When
-            dfa.Act("0").Act("1");
+            dfa.Act(new("0")).Act(new("1"));
             var countOfRowsInJournal = dfa.GetJournal().GetJournalContent().Count;
             var currentState = dfa.GetCurrentState();
             var isFinalState = dfa.IsFinal();

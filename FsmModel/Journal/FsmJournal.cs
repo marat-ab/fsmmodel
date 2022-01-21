@@ -22,7 +22,7 @@ namespace FsmModel.Journal
 
         // IFsmJournal
 
-        public void AddEvent(State state, Signal inSignal, Signal outSignal)
+        public void AddEvent(State state, InSignal inSignal, OutSignal outSignal)
         {
             var stateValue = state.ToString();
             var inSignalValue = inSignal.ToString();

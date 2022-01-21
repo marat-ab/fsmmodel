@@ -9,20 +9,20 @@ namespace FsmModel.Dfa
 {
     public partial class DfaModel : IDfaModel
     {
-        readonly private Dictionary<ValueTuple<State, Signal>, State> _stateMap = new();
-        readonly private Dictionary<ValueTuple<State, Signal>, Signal> _outSignalMap = new();
+        readonly private Dictionary<ValueTuple<State, InSignal>, State> _stateMap = new();
+        readonly private Dictionary<ValueTuple<State, InSignal>, OutSignal> _outSignalMap = new();
         private State _initialState = new(string.Empty);
         readonly private List<State> _finalStates = new();
         private bool _isNeedJournal = false;
         private bool _isActionsDeactivated = true;
 
-        private readonly Dictionary<Signal, Action> _actions = new();
+        private readonly Dictionary<OutSignal, Action> _actions = new();
 
         private readonly IFsmJournal _journal = new FsmJournal();
         private State _currentState = new(string.Empty);
-        private Signal _outSignal = new(string.Empty);
+        private OutSignal _outSignal = new(string.Empty);
 
-        readonly private List<Signal> _signals = new();
+        readonly private List<InSignal> _signals = new();
         readonly private List<State> _states = new();
 
         public DfaModel()
@@ -30,11 +30,11 @@ namespace FsmModel.Dfa
         }
 
         public DfaModel(
-            Dictionary<ValueTuple<State, Signal>, State> stateMap,
-            Dictionary<ValueTuple<State, Signal>, Signal> outMap,
+            Dictionary<ValueTuple<State, InSignal>, State> stateMap,
+            Dictionary<ValueTuple<State, InSignal>, OutSignal> outMap,
             State initialState,
             List<State> finishStates,
-            Dictionary<Signal, Action> actions,
+            Dictionary<OutSignal, Action> actions,
             bool isNeedJournal = false,
             bool isActionsDeactivated = true)
         {
@@ -60,7 +60,7 @@ namespace FsmModel.Dfa
             return this;
         }
 
-        public IDfaModel Act(Signal signal)
+        public IDfaModel Act(InSignal signal)
         {
             // Checks
             if (!_signals.Contains(signal))
@@ -91,9 +91,9 @@ namespace FsmModel.Dfa
         public IDfaModel AddTrasition(
             State fromState,
             State toState,
-            Signal bySignal,
+            InSignal bySignal,
             bool isFinished,
-            Signal outSignal,
+            OutSignal outSignal,
             Action? action = null)
         {
             // Checks
@@ -127,7 +127,7 @@ namespace FsmModel.Dfa
             return this;
         }
 
-        public Signal GetOutSignal() =>
+        public OutSignal GetOutSignal() =>
             _outSignal;
 
         public IDfaModel SetInitialState(State initialState)

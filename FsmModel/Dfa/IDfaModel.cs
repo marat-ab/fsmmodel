@@ -19,7 +19,7 @@ namespace FsmModel.Dfa
         /// </summary>
         /// <param name="signal"></param>
         /// <returns>Current DFA</returns>
-        IDfaModel Act(Signal signal);
+        IDfaModel Act(InSignal signal);
 
         // Create and tuning
 
@@ -36,9 +36,9 @@ namespace FsmModel.Dfa
         IDfaModel AddTrasition(
             State fromState,
             State toState,
-            Signal bySignal,
+            InSignal bySignal,
             bool isFinal,
-            Signal outSignal,
+            OutSignal outSignal,
             Action? action = null);
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace FsmModel.Dfa
         /// Get last output signal of DFA
         /// </summary>
         /// <returns>Output signal</returns>
-        Signal GetOutSignal();
+        OutSignal GetOutSignal();
 
         /// <summary>
         /// Set initial state of DFA

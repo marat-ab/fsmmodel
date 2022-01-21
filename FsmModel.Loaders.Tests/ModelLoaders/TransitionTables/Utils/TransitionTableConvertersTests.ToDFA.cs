@@ -18,7 +18,7 @@ namespace FsmModel.Loaders.Tests.ModelLoaders.TransitionTables.Utils
         {
             // Given
             var transTable = CreateTransitionTable();
-            var expectedStateMap = new Dictionary<ValueTuple<State, Signal>, State>()
+            var expectedStateMap = new Dictionary<ValueTuple<State, InSignal>, State>()
             {
                 [(new("q0"), new("r0"))] = new("q0"),
                 [(new("q0"), new("r1"))] = new("q1"),
@@ -26,7 +26,7 @@ namespace FsmModel.Loaders.Tests.ModelLoaders.TransitionTables.Utils
                 [(new("q1"), new("r1"))] = new("q1")
             };
 
-            var expectedOutMap = new Dictionary<ValueTuple<State, Signal>, Signal>()
+            var expectedOutMap = new Dictionary<ValueTuple<State, InSignal>, OutSignal>()
             {
                 [(new("q0"), new("r0"))] = new("OFF"),
                 [(new("q0"), new("r1"))] = new("ON"),

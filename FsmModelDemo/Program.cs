@@ -13,13 +13,13 @@ namespace FsmModelDemo
             var q0 = new State("q0");
             var q1 = new State("q1");
             
-            var s0 = new Signal("00");
-            var s1 = new Signal("01");
-            var s2 = new Signal("10");
-            var s3 = new Signal("11");
+            var s0 = new InSignal("00");
+            var s1 = new InSignal("01");
+            var s2 = new InSignal("10");
+            var s3 = new InSignal("11");
 
-            var r0 = new Signal("0");
-            var r1 = new Signal("1");
+            var r0 = new OutSignal("0");
+            var r1 = new OutSignal("1");
 
             var fsm = new DfaModel()
                 .AddTrasition(q0, q0, s0, true, r0, () => Print("0"))
