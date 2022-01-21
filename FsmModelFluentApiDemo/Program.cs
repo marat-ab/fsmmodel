@@ -38,7 +38,7 @@ namespace FsmModelDemo
                 .SetIsNeedActionsDeactivate(false);
 
             // Modeling
-            dfa.Act(s0).Act(s0).Act(s2).Act(s3).Act(s1).Act(s3).Act(s0).Act(s0);
+            dfa.Act(s3).Act(s0).Act(s2).Act(s3).Act(s1).Act(s3).Act(s0).Act(s0);
 
             // Print Journal
             JournalUtils.GetPrettyJournalContent(dfa.GetJournal())

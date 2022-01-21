@@ -28,7 +28,7 @@ namespace FsmModel.Journal
             var inSignalValue = inSignal.ToString();
             var outSignalValue = outSignal.ToString();
 
-            _journal.Add(new() { stateValue, inSignalValue, outSignalValue });
+            _journal.Add(new() { inSignalValue, stateValue, outSignalValue });
 
             UpdateMaxNameSizes(stateValue, inSignalValue, outSignalValue);
         }
