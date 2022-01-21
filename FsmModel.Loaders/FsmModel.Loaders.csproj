@@ -9,9 +9,10 @@
 	<Authors>Marat Abdrakhmanov</Authors>
 	<Company>Devpractice</Company>
 	<Product>FsmModel.Loaders</Product>
-	<Description>FsmModel.Loaders is a library with tools for loading transition tables from files 
-		and convert it into DFA models.</Description>
+	<Description>FsmModel.Loaders is a library with tools for loading transition tables from files and convert it into DFA models.</Description>
 	<Copyright>copyright © 2022</Copyright>
+	<RepositoryUrl>https://www.nuget.org/packages/FsmModel/</RepositoryUrl>
+	<PackageTags>FSM DFA</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>

@@ -15,7 +15,9 @@
 	<Copyright>copyright © 2022</Copyright>
 	<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
 	<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-	<PackageProjectUrl>https://github.com/marat-ab/fsmmodel</PackageProjectUrl>
+	<PackageProjectUrl></PackageProjectUrl>
+	<PackageTags>FSM DFA</PackageTags>
+	<RepositoryUrl>https://github.com/marat-ab/fsmmodel</RepositoryUrl>
   </PropertyGroup>
 
 </Project>
