@@ -14,7 +14,7 @@ namespace FsmModel.Loaders.Tests.ModelLoaders.TransitionTables.Utils
     partial class TransitionTableConvertersTests
     {
         [Test]
-        public void BuildTestMapFromTransitionTable()
+        public void BuildDfaModelFromTransitionTable()
         {
             // Given
             var transTable = CreateTransitionTable();
@@ -26,11 +26,27 @@ namespace FsmModel.Loaders.Tests.ModelLoaders.TransitionTables.Utils
                 [(new("q1"), new("r1"))] = new("q1")
             };
 
+            var expectedOutMap = new Dictionary<ValueTuple<State, Signal>, Signal>()
+            {
+                [(new("q0"), new("r0"))] = new("OFF"),
+                [(new("q0"), new("r1"))] = new("ON"),
+                [(new("q1"), new("r0"))] = new("OFF"),
+                [(new("q1"), new("r1"))] = new("ON")
+            };
+
+            var expectedInitialState = new State("q0");
+            var expectedFinishStates = new List<State> { new("q0"), new("q1") };
+            
             // When
-            var stateMap = TransitionTableConverters.BuildStateMap(transTable);
+            var dfa = TransitionTableConverters.ToDfaModel(transTable);
 
             // Then
-            stateMap.Should().BeEquivalentTo(expectedStateMap);
+            dfa.StateMap.Should().BeEquivalentTo(expectedStateMap);
+            dfa.OutMap.Should().BeEquivalentTo(expectedOutMap);
+            dfa.GetInitialState().Should().Be(expectedInitialState);
+            dfa.FinishStates.Should().BeEquivalentTo(expectedFinishStates);
+            dfa.IsNeedJournal().Should().BeTrue();
+            dfa.IsActionsDeactivated().Should().BeTrue();
         }
     }
 }

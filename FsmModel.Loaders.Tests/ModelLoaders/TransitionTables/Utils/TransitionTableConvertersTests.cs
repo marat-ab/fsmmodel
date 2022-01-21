@@ -17,7 +17,7 @@ namespace FsmModel.Loaders.Tests.ModelLoaders.TransitionTables.Utils
             {
                 FsmType = FsmType.DFA,
                 InitialState = "q0",
-                FinalStates = new() { "q0", "q1" },
+                FinishStates = new() { "q0", "q1" },
                 IsNeedJournal = true,
                 StateMap = new()
                 {

@@ -17,6 +17,9 @@ namespace FsmModel.Dfa
             get => _outSignalMap.ToDictionary(k => k.Key, v => v.Value);
         }
 
-        public List<State> FinalStates { get => _finalStates.ToList(); }
+        public List<State> FinishStates 
+        { 
+            get => _finalStates.ToList(); 
+        }
     }
 }

@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\FsmModel.Loaders\FsmModel.Loaders.csproj" />
     <ProjectReference Include="..\FsmModel\FsmModel.csproj" />
   </ItemGroup>
 

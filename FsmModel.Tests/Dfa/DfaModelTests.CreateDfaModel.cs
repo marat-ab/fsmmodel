@@ -24,7 +24,7 @@ namespace FsmModel.Tests.Dfa
             // Then
             dfaEmpty.StateMap.Should().BeEquivalentTo(emptyStateMap);
             dfaEmpty.OutMap.Should().BeEquivalentTo(emptyOutMap);
-            dfaEmpty.FinalStates.Should().BeEquivalentTo(emptyFinishStates);
+            dfaEmpty.FinishStates.Should().BeEquivalentTo(emptyFinishStates);
 
             dfaEmpty.GetInitialState().Should().Be(unsettedStartState);
             dfaEmpty.IsNeedJournal().Should().BeFalse();
@@ -70,7 +70,7 @@ namespace FsmModel.Tests.Dfa
             // Then
             dfa.StateMap.Should().BeEquivalentTo(stateMap);
             dfa.OutMap.Should().BeEquivalentTo(outMap);
-            dfa.FinalStates.Should().BeEquivalentTo(finishStates);
+            dfa.FinishStates.Should().BeEquivalentTo(finishStates);
 
             dfa.GetInitialState().Should().Be(initialState);
             dfa.IsNeedJournal().Should().BeTrue();
@@ -119,7 +119,7 @@ namespace FsmModel.Tests.Dfa
             // Then
             dfa.StateMap.Should().BeEquivalentTo(stateMap);
             dfa.OutMap.Should().BeEquivalentTo(outMap);
-            dfa.FinalStates.Should().BeEquivalentTo(finishStates);
+            dfa.FinishStates.Should().BeEquivalentTo(finishStates);
 
             dfa.GetInitialState().Should().Be(initialState);
             dfa.IsNeedJournal().Should().BeTrue();
