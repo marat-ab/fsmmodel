@@ -2,6 +2,14 @@
 FsmModel is a library for creating and using Finite Automata (Finite State Machines).
 
 # Install
+.NET CLI:
+```
+dotnet add package FsmModel --version 0.0.1
+```
+Package Manager:
+```
+Install-Package FsmModel -Version 0.0.1
+```
 
 # Description
 ## Repository structure

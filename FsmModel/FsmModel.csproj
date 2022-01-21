@@ -15,6 +15,7 @@
 	<Copyright>copyright © 2022</Copyright>
 	<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
 	<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+	<PackageProjectUrl>https://github.com/marat-ab/fsmmodel</PackageProjectUrl>
   </PropertyGroup>
 
 </Project>
