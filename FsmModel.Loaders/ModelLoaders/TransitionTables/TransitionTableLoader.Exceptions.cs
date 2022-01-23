@@ -13,7 +13,23 @@ namespace FsmModel.Loaders.ModelLoaders.TransitionTables
             {
                 return loadTableModelFunction();
             }
-            catch (ModelIsNotValidException e)
+            catch (TransitionTableModelIsNullException e)
+            {
+                throw CreateTableModelValidationException(e);
+            }
+            catch (StateMapException e)
+            {
+                throw CreateTableModelValidationException(e);
+            }
+            catch (InitialStateException e)
+            {
+                throw CreateTableModelValidationException(e);
+            }
+            catch (FinishStatesException e)
+            {
+                throw CreateTableModelValidationException(e);
+            }
+            catch (OutMapException e)
             {
                 throw CreateTableModelValidationException(e);
             }
