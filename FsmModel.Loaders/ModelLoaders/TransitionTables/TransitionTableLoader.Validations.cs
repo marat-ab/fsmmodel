@@ -6,7 +6,7 @@ namespace FsmModel.Loaders.ModelLoaders.TransitionTables
 {
     public partial class TransitionTableLoader
     {
-        private List<string> _states = new();
+        private readonly List<string> _states = new();
 
         private void ValidateTableModel(TransitionTable? model)
         {
@@ -41,7 +41,7 @@ namespace FsmModel.Loaders.ModelLoaders.TransitionTables
                 throw new StateMapException("State map has duplicates among the first elements of the table");
 
             foreach (var row in model.StateMap.Skip(1))
-                if (row.Except(_states).Count() != 0)
+                if (row.Except(_states).Any())
                     throw new StateMapException("Unknown state in state map");
 
             // Check input signals
@@ -88,8 +88,7 @@ namespace FsmModel.Loaders.ModelLoaders.TransitionTables
             foreach (var row in model.OutMap.Skip(1))
                 outMapStates.Add(row.First());
 
-            if (_states.Except(outMapStates).Count() != 0
-                || outMapStates.Except(_states).Count() != 0)
+            if (_states.Except(outMapStates).Any() || outMapStates.Except(_states).Any())
                 throw new OutMapException("State map and Out map is different");
 
             // Check input signals
