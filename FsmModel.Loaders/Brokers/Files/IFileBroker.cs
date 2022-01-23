@@ -1,7 +1,7 @@
 ﻿namespace FsmModel.Loaders.Brokers.Files
 {
-    public interface IFileBroker
+    public interface IFileBroker<T>
     {
-        T? Load<T>(string fileName);
+        T? Load(string fileName);
     }
 }

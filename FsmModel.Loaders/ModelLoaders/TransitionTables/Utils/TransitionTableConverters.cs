@@ -31,7 +31,7 @@ namespace FsmModel.Loaders.ModelLoaders.TransitionTables.Utils
             var stateMap = new Dictionary<ValueTuple<State, InSignal>, State>();
 
             List<InSignal> inSignals = table.StateMap.First()
-                                        .TakeLast(table.StateMap.Count - 1)
+                                        .TakeLast(table.StateMap.First().Count - 1)
                                         .Select(v => new InSignal(v))
                                         .ToList();
 
@@ -52,7 +52,7 @@ namespace FsmModel.Loaders.ModelLoaders.TransitionTables.Utils
             var outMap = new Dictionary<ValueTuple<State, InSignal>, OutSignal>();
 
             List<InSignal> inSignals = table.OutMap.First()
-                                        .TakeLast(table.OutMap.Count - 1)
+                                        .TakeLast(table.OutMap.First().Count - 1)
                                         .Select(v => new InSignal(v))
                                         .ToList();
 

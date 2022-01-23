@@ -12,14 +12,8 @@ namespace FsmModelTableModelDemo
     {
         static void Main(string[] args)
         {
-            // Create fileName
-
-            var dirName = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            var fileName = Path.Combine(dirName is null ? "" : dirName, "tablemodel.json");
-
             // Load transition table
-            var loader = new TransitionTableLoader(new FileBroker());
-            var transitionTable = loader.Load(fileName);
+            var transitionTable = LoadTransitionTable("tablemodel.json");
 
             // Convert TransitionTable into DfaModel
             var dfaModel = TransitionTableConverters.ToDfaModel(transitionTable);
@@ -30,6 +24,19 @@ namespace FsmModelTableModelDemo
             // Print Journal
             JournalUtils.GetPrettyJournalContent(dfaModel.GetJournal())
                 .ForEach(row => Console.WriteLine(row));
+        }
+
+        static TransitionTable LoadTransitionTable(string fileName)
+        {
+            // Create fileName
+            var dirName = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            var fullFileName = Path.Combine(dirName is null ? "" : dirName, fileName);
+
+            // Load transition table
+            var loader = new TransitionTableLoader(new JsonFileBroker<TransitionTable>());
+            var transitionTable = loader.Load(fullFileName);
+
+            return transitionTable;
         }
     }
 }

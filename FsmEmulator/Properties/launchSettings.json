@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "FsmEmulator": {
+      "commandName": "Project",
+      "commandLineArgs": "-t tablemodel.json -s SignalsSeq.txt"
+    }
+  }
+}
