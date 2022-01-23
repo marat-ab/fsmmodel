@@ -55,7 +55,7 @@ namespace FsmModel.Loaders.ModelLoaders.TransitionTables.Utils
         {
             if (model.OutMap is null)
                 throw new OutMapException("Out map is null");
-            
+
             var outMap = new Dictionary<ValueTuple<State, InSignal>, OutSignal>();
 
             List<InSignal> inSignals = model.OutMap.First()
@@ -87,7 +87,7 @@ namespace FsmModel.Loaders.ModelLoaders.TransitionTables.Utils
             {
                 null => throw new FinishStatesException("Finish states is null"),
                 _ => model.FinishStates.Select(v => new State(v)).ToList()
-            };            
+            };
 
         private static bool IsNeedJournal(TransitionTable model) =>
             model.IsNeedJournal;

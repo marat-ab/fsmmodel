@@ -34,7 +34,7 @@ namespace FsmModel.Loaders.ModelLoaders.TransitionTables
                     throw new StateMapException("State map has different count of elements in rows");
 
             // Check states
-            foreach(var row in model.StateMap.Skip(1))
+            foreach (var row in model.StateMap.Skip(1))
                 _states.Add(row.First());
 
             if (_states.Count != _states.Distinct().Count())

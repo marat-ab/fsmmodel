@@ -4,7 +4,7 @@ using FsmModel.Utils;
 using System;
 using System.Collections.Generic;
 
-namespace FsmEmulator.Emulators
+namespace FsmEmulator.Emulators.SimpleDfaEmulators
 {
     class SimpleDfaEmulator
     {

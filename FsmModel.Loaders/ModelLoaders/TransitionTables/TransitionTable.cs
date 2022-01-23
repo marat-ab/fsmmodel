@@ -10,6 +10,6 @@ namespace FsmModel.Loaders.ModelLoaders.TransitionTables
         public List<string>? FinishStates { get; set; }
         public bool IsNeedJournal { get; set; }
         public List<List<string>>? StateMap { get; set; }
-        public List<List<string>>? OutMap { get; set; } 
+        public List<List<string>>? OutMap { get; set; }
     }
 }
