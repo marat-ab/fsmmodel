@@ -3,9 +3,9 @@ using System.Text.Json;
 
 namespace FsmModel.Loaders.Brokers.Files
 {
-    public class FileBroker : IFileBroker
+    public class JsonFileBroker<T> : IFileBroker<T>
     {
-        public T? Load<T>(string fileName)
+        public T? Load(string fileName)
         {
             if (!File.Exists(fileName))
                 throw new FileNotFoundException($"File: {fileName}");

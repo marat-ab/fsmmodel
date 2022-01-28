@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommandLineParser" Version="2.8.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FsmModel.Loaders\FsmModel.Loaders.csproj" />
+    <ProjectReference Include="..\FsmModel\FsmModel.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="SignalsSeq.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tablemodel.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Emulators\SimpleDfaEmulators\Exceptions\" />
+  </ItemGroup>
+
+</Project>

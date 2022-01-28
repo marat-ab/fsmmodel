@@ -1,4 +1,5 @@
 ﻿using FsmModel.Dfa;
+using FsmModel.Loaders.ModelLoaders.TransitionTables.Exceptions;
 using FsmModel.Models;
 using System;
 using System.Collections.Generic;
@@ -26,16 +27,19 @@ namespace FsmModel.Loaders.ModelLoaders.TransitionTables.Utils
             return dfaModel;
         }
 
-        private static Dictionary<ValueTuple<State, InSignal>, State> BuildStateMap(TransitionTable table)
+        private static Dictionary<ValueTuple<State, InSignal>, State> BuildStateMap(TransitionTable model)
         {
+            if (model.StateMap is null)
+                throw new StateMapException("State map is null");
+
             var stateMap = new Dictionary<ValueTuple<State, InSignal>, State>();
 
-            List<InSignal> inSignals = table.StateMap.First()
-                                        .TakeLast(table.StateMap.Count - 1)
+            List<InSignal> inSignals = model.StateMap.First()
+                                        .TakeLast(model.StateMap.First().Count - 1)
                                         .Select(v => new InSignal(v))
                                         .ToList();
 
-            foreach (var row in table.StateMap.Skip(1))
+            foreach (var row in model.StateMap.Skip(1))
             {
                 var state = row[0];
                 foreach (var s in row.Skip(1).Select((v, i) => (v, i)))
@@ -47,16 +51,19 @@ namespace FsmModel.Loaders.ModelLoaders.TransitionTables.Utils
             return stateMap;
         }
 
-        private static Dictionary<ValueTuple<State, InSignal>, OutSignal> BuildOutMap(TransitionTable table)
+        private static Dictionary<ValueTuple<State, InSignal>, OutSignal> BuildOutMap(TransitionTable model)
         {
+            if (model.OutMap is null)
+                throw new OutMapException("Out map is null");
+
             var outMap = new Dictionary<ValueTuple<State, InSignal>, OutSignal>();
 
-            List<InSignal> inSignals = table.OutMap.First()
-                                        .TakeLast(table.OutMap.Count - 1)
+            List<InSignal> inSignals = model.OutMap.First()
+                                        .TakeLast(model.OutMap.First().Count - 1)
                                         .Select(v => new InSignal(v))
                                         .ToList();
 
-            foreach (var row in table.OutMap.Skip(1))
+            foreach (var row in model.OutMap.Skip(1))
             {
                 var state = row[0];
                 foreach (var s in row.Skip(1).Select((v, i) => (v, i)))
@@ -68,14 +75,21 @@ namespace FsmModel.Loaders.ModelLoaders.TransitionTables.Utils
             return outMap;
         }
 
-        private static State GetInitialState(TransitionTable table) =>
-            new(table.InitialState);
+        private static State GetInitialState(TransitionTable model) =>
+            model.InitialState switch
+            {
+                null => throw new InitialStateException("Initial state is null"),
+                _ => new(model.InitialState)
+            };
 
-        private static List<State> GetFinishStates(TransitionTable table) =>
-            table.FinishStates.Select(v => new State(v)).ToList();
+        private static List<State> GetFinishStates(TransitionTable model) =>
+            model.FinishStates switch
+            {
+                null => throw new FinishStatesException("Finish states is null"),
+                _ => model.FinishStates.Select(v => new State(v)).ToList()
+            };
 
-        private static bool IsNeedJournal(TransitionTable table) =>
-            table.IsNeedJournal;
-
+        private static bool IsNeedJournal(TransitionTable model) =>
+            model.IsNeedJournal;
     }
 }

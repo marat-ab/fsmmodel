@@ -11,7 +11,7 @@ namespace FsmModel.Utils
             // Prepare
             var content = new List<string>();
 
-            var tableColNames = new List<string> { "Time", "Signal", "State", "Out msg" };
+            var tableColNames = new List<string> { "Time", "State", "Signal", "Out msg" };
 
             var journal = fsmJournal.GetJournalContent();
 
