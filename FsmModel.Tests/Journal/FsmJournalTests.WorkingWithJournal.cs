@@ -16,16 +16,7 @@ namespace FsmModel.Tests.Journal
         [Test]
         public void AddEventsIntoJournal()
         {
-            // Given
-            var q0 = new State("q0");
-            var q1 = new State("q1");
-
-            var s0 = new InSignal("0");
-            var s1 = new InSignal("1");
-
-            var r0 = new OutSignal("OFF");
-            var r1 = new OutSignal("ON");
-
+            // Given           
             var journal = new FsmJournal();
 
             // When
@@ -43,15 +34,6 @@ namespace FsmModel.Tests.Journal
         public void ClearFsmJournal()
         {
             // Given
-            var q0 = new State("q0");
-            var q1 = new State("q1");
-
-            var s0 = new InSignal("0");
-            var s1 = new InSignal("1");
-
-            var r0 = new OutSignal("OFF");
-            var r1 = new OutSignal("ON");
-
             var journal = new FsmJournal();
 
             // When
@@ -70,16 +52,7 @@ namespace FsmModel.Tests.Journal
         [Test]
         public void CloneFsmJournal()
         {
-            // Given
-            var q0 = new State("q0");
-            var q1 = new State("q1");
-
-            var s0 = new InSignal("0");
-            var s1 = new InSignal("1");
-
-            var r0 = new OutSignal("OFF");
-            var r1 = new OutSignal("ON");
-
+            // Given     
             var journal = new FsmJournal();
                         
             journal.AddEvent(q0, s0, r0);
