@@ -2,7 +2,7 @@
   "profiles": {
     "FsmEmulator": {
       "commandName": "Project",
-      "commandLineArgs": "-t tablemodel.json -s SignalsSeq.txt"
+      "commandLineArgs": "-t even_check_fsm.json -s even_check_signal_seq.txt"
     }
   }
 }
