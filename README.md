@@ -1,3 +1,5 @@
+[![Build Status](https://github.com/marat-ab/fsmmodel/actions/workflows/dotnet.yml/badge.svg?branch=main)](https://github.com/marat-ab/fsmmodel/actions/workflows/dotnet.yml)
+
 # FsmModel
 FsmModel is a library for creating and using Finite Automata (Finite State Machines).
 
