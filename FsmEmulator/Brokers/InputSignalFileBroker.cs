@@ -14,7 +14,7 @@ namespace FsmEmulator.Brokers
             if (!File.Exists(fileName))
                 throw new FileNotFoundException($"File: {fileName}");
 
-            var rawString = File.ReadAllText(fileName);
+            var rawString = File.ReadAllText(fileName).Trim();
 
             rawString = rawString.Replace(Environment.NewLine, " ");
 

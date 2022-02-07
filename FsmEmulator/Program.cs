@@ -2,6 +2,7 @@
 using FsmEmulator.Emulators;
 using FsmEmulator.Emulators.SimpleDfaEmulators;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace FsmEmulator
 {
